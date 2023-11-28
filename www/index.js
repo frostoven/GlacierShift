@@ -1,6 +1,8 @@
 const { variables } = require('./variables');
 const { glacier } = require('../generator/glacier');
 
+glacier.copyAssetsDir({ dirname: __dirname + '/assets' });
+
 const page = `
 <!doctype html>
 <html lang="en">
@@ -8,11 +10,14 @@ const page = `
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="description" content="Free online in-browser video and audio editor.">
+    <meta name="description" content="${variables.siteDescription}">
     <title>${variables.siteName}</title>
+    
+    <link rel="stylesheet" href="assets/css/app.css" />
 </head>
-<body class="cabinet-background" style="background-color:#3d3d3d;">
-  <h1>Welcome to ${variables.siteName}!</h1>
+<body>
+  <h3>${variables.easterEgg}</h3>
+  <img src="assets/img/wave.png">
 </body>
 </html>
 `;
