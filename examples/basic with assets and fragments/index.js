@@ -1,6 +1,8 @@
 const { variables } = require('./variables');
 const { glacier } = require('../generator/glacier');
 
+// This line copies the assets directory to the site directory. Run this once
+// only, preferably from your entrypoint index.js file.
 glacier.copyAssetsDir({ dirname: __dirname + '/assets' });
 
 const page = `
