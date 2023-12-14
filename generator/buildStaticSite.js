@@ -1,4 +1,8 @@
 const fs = require('fs');
+const { buildConfig } = require('./buildConfig');
+
+// Variable preparation.
+const { inputDirectory, outputDirectory } = buildConfig;
 
 if (__dirname !== process.cwd() + '/generator') {
   // This is needed to prevent complexity around require() functions.
@@ -8,19 +12,22 @@ if (__dirname !== process.cwd() + '/generator') {
 
 console.log('Working directory:', process.cwd());
 
-let wwwDirExists = false;
+// Below follows all pre-setup such as creating the right directory structure,
+// and so forth.
+let outputDirExists = false;
 try {
-  const stat = fs.statSync('www');
+  const stat = fs.statSync(inputDirectory);
   if (stat.isDirectory()) {
-    wwwDirExists = true;
+    outputDirExists = true;
   }
 }
 catch (error) {}
 
-if (!wwwDirExists) {
+if (!outputDirExists) {
   console.error(
     '[Error]',
-    'Please create a directory named "www" and place your project in there.',
+    `Please create a directory named "${inputDirectory}" and place your`,
+    'project in there.',
     '\nSee the readme for links to examples.',
   );
   process.exit(1);
@@ -28,7 +35,7 @@ if (!wwwDirExists) {
 
 let entrypointExists = false;
 try {
-  const stat = fs.statSync('www/index.js');
+  const stat = fs.statSync(`${inputDirectory}/index.js`);
   if (!stat.isDirectory()) {
     entrypointExists = true;
   }
@@ -39,16 +46,16 @@ if (!entrypointExists) {
   console.error(
     '[Error]',
     'Please create a your entrypoint file. It should be located here:',
-    '\n  www/index.js',
+    `\n  ${inputDirectory}/index.js`,
     '\nSee the readme for links to examples.',
   );
   process.exit(1);
 }
 
-if (fs.existsSync('./site')) {
-  fs.rmSync('./site', { recursive: true });
+if (fs.existsSync(`./${outputDirectory}`)) {
+  fs.rmSync(`./${outputDirectory}`, { recursive: true });
 }
-fs.mkdirSync('site', { recursive: true });
+fs.mkdirSync(outputDirectory, { recursive: true });
 
 // Start the process by simply importing the user's index file.
-require('../www/index.js');
+require(`../${inputDirectory}/index.js`);

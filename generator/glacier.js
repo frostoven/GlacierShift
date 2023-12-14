@@ -1,4 +1,7 @@
 const fs = require('fs');
+const { buildConfig } = require('./buildConfig');
+
+const { inputDirectory, outputDirectory } = buildConfig;
 
 class Glacier {
   /**
@@ -33,6 +36,11 @@ class Glacier {
     fs.writeFileSync(buildDir + '/index.html', page);
   }
 
+  /** maybe first have a look at how showdown works */
+  scanForMdFiles() {
+    //
+  }
+
   /**
    * @param dirname
    * @return {string}
@@ -40,7 +48,7 @@ class Glacier {
    */
   _getRelativePath({ dirname }) {
     return './' + dirname.replace(
-      new RegExp(`^${process.cwd()}/www`), '',
+      new RegExp(`^${process.cwd()}/${inputDirectory}`), '',
     );
   }
 
@@ -50,7 +58,7 @@ class Glacier {
    * @private
    */
   _getRelativeBuildDir({ dirname }) {
-    return './site/' + this._getRelativePath({ dirname });
+    return `./${outputDirectory}/` + this._getRelativePath({ dirname });
   }
 }
 
