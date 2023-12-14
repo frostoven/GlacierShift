@@ -4,6 +4,20 @@ const { buildConfig } = require('./buildConfig');
 // Variable preparation.
 const { inputDirectory, outputDirectory } = buildConfig;
 
+// Track how long the build takes.
+const startTime = performance.now();
+process.on('exit', function (){
+  let duration = performance.now() - startTime;
+  if (duration < 1000) {
+    duration = duration.toFixed(2) + ' milliseconds';
+  }
+  else {
+    duration = (duration * 0.001).toFixed(2) + ' seconds';
+  }
+  console.log('Build took', duration);
+});
+
+// Check that we're in the right directory.
 if (__dirname !== process.cwd() + '/generator') {
   // This is needed to prevent complexity around require() functions.
   console.error('Please run this builder from the project root.');
