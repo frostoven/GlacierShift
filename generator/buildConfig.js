@@ -1,8 +1,8 @@
 const buildConfig = {
   // The directory that contains your source files.
-  inputDirectory: 'www',
+  inputDirectory: 'project',
   // The directory the build site is saved to.
-  outputDirectory: 'site',
+  outputDirectory: 'site-output',
 };
 
 module.exports = {
