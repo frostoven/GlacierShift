@@ -1,0 +1,15 @@
+{
+  "name": "glacier",
+  "version": "1.0.0",
+  "description": "## Intro",
+  "main": "index.js",
+  "scripts": {
+    "build": "node generator/buildStaticSite.js",
+    "bun-build": "bun generator/buildStaticSite.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "showdown": "2.1.0"
+  }
+}
